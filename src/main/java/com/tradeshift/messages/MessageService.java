@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageService {
     public ResponseMessage getResponseMessage(String name) {
+        
         return new ResponseMessage(name);
     }
 }
