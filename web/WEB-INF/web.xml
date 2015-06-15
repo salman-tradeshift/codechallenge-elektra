@@ -6,14 +6,17 @@
     <servlet>
         <servlet-name>Jersey Web Application</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>rest</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>Jersey Web Application</servlet-name>
-        <url-pattern>/webapi/*</url-pattern>
+        <url-pattern>/messages/*</url-pattern>
     </servlet-mapping>
+
 </web-app>

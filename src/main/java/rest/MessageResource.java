@@ -1,19 +1,31 @@
 package rest;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
  * Created by ksp on 08/06/15.
  */
-@Path("resource")
+
+@Component
+@Path("names/{name}")
 public class MessageResource {
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Got it!";
+    @Autowired
+    private MessageService messageService;
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public MessageService getIt(@PathParam("name") String name) {
+        messageService.setMessage("hello " + name);
+        return messageService;
     }
+
+
 }
