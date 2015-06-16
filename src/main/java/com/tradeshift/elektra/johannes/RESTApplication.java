@@ -6,6 +6,7 @@ import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 public class RESTApplication extends ResourceConfig {
 
     public RESTApplication() {
+        register(MessageDAO.class);
         register(RequestContextFilter.class);
         register(MessageResource.class);
         register(MessageService.class);
