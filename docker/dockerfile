@@ -1,0 +1,24 @@
+# Dockerfile
+
+FROM ubuntu:trusty
+
+RUN apt-get update && apt-get install -qq openjdk-7-jre && apt-get install -qq wget
+
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+
+RUN wget -O /opt/jetty.tar.gz "https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.2.10.v20150310/jetty-distribution-9.2.10.v20150310.tar.gz"
+
+RUN tar -xvf /opt/jetty.tar.gz -C /opt/
+RUN rm /opt/jetty.tar.gz
+RUN mv /opt/jetty-distribution-9.2.10.v20150310 /opt/jetty
+RUN rm -rf /opt/jetty/webapps.demo
+RUN useradd jetty -U -s /bin/false
+RUN chown -R jetty:jetty /opt/jetty/
+
+ADD messages.war /opt/jetty/webapps/messages.war
+
+EXPOSE 8080
+
+WORKDIR /opt/jetty
+
+CMD ["java", "-jar", "start.jar", "jetty.home=/opt/jetty"]
