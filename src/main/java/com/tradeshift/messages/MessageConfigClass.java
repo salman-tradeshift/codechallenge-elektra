@@ -1,5 +1,8 @@
 package com.tradeshift.messages;
 
+import com.tradeshift.messages.dao.MessageDao;
+import com.tradeshift.messages.resource.MessageResource;
+import com.tradeshift.messages.service.MessageService;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
@@ -16,5 +19,6 @@ public class MessageConfigClass extends ResourceConfig {
         register(RequestContextFilter.class);
         register(MessageService.class);
         register(MessageResource.class);
+        register(MessageDao.class);
     }
 }

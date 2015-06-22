@@ -1,13 +1,13 @@
-package com.tradeshift.messages;
+package com.tradeshift.messages.resource;
 
+import com.tradeshift.messages.forjson.ResponseMessage;
+import com.tradeshift.messages.forjson.ResponseRecentMessages;
+import com.tradeshift.messages.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 @Component
 @Scope("prototype")
-@Path("/names/{name: [a-zA-Z]+ }")
+@Path("/")
 public class MessageResource {
     private final MessageService msgService;
 
@@ -30,8 +30,16 @@ public class MessageResource {
     }
 
     @POST
+    @Path("/names/{name: [a-zA-Z]+ }")
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseMessage getResponseMessage(@PathParam("name") String name) {
         return msgService.getResponseMessage(name);
+    }
+
+    @GET
+    @Path("/recent")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseRecentMessages getRecentMessages() {
+        return msgService.getRecentMessages();
     }
 }
