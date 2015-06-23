@@ -56,7 +56,8 @@ public class TestMessageService {
         ResponseRecent responseRecent = messageService.getLatestMessages();
         assertEquals(2, responseRecent.getMessageCount());
         assertEquals(2, responseRecent.getMessages().size());
-
+        assertEquals("hello1", responseRecent.getMessages().get(0).getContent());
+        assertEquals("hello2", responseRecent.getMessages().get(1).getContent());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
         sdf.setCalendar(timestamp);
 
