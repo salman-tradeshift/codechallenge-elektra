@@ -1,8 +1,8 @@
 
 
-DROP TABLE IF EXISTS message;
 
-CREATE TABLE message
+
+CREATE TABLE IF NOT EXISTS message
 (
   id serial NOT NULL,
   content text,

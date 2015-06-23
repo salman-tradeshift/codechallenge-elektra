@@ -17,7 +17,7 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-
+    public Message(){}
 
     public String getContent(){
         return content;
