@@ -8,3 +8,4 @@ EXPOSE	8080
 WORKDIR	jetty-distribution-9.2.11.v20150529
 COPY	target/root.war webapps/
 CMD	java -jar start.jar
+

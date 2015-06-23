@@ -12,7 +12,9 @@ import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by ksp on 16/06/15.
@@ -25,18 +27,26 @@ public class MessageDAO {
 
     @Autowired
     public void setDataSource(BasicDataSource dataSource) {
+
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Message> getLatestMesseges(){
+    public void saveMessage(Message message){
+        String sql = "insert into message(content) values(?)";
+        jdbcTemplate.update(sql, message.getContent());
+    }
+
+    public List<Message> getLatestMessages(){
         String sql = "select * from message order by timestamp desc limit 10";
 
         List<Message> messages = this.jdbcTemplate.query(sql, new RowMapper<Message>() {
             public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Message message = new Message();
-                message.setContent(rs.getString("content"));
-                message.setTimestamp(rs.getTimestamp("timestamp"));
+                String content = rs.getString("content");
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+                calendar.setTime(rs.getTimestamp("timestamp"));
 
+                Message message = new Message(content, calendar);
                 return message;
             }
         });

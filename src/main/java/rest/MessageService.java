@@ -1,13 +1,14 @@
 package rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 
@@ -16,43 +17,38 @@ import java.util.TimeZone;
  */
 @Component
 public class MessageService {
+    private MessageDAO messageDAO;
+
     @Autowired
-    private Message message;
-
-    public void setMessage(String content){
-        message.setContent(content);
+    public MessageService(MessageDAO messageDAO){
+        this.messageDAO = messageDAO;
     }
 
-    public Message getMessage(){
+    public ResponseMessage saveMessage(String content){
+        Message message = new Message(content, null);
 
-        return message;
+        messageDAO.saveMessage(message);
 
-    }
-}
+        ResponseMessage responseMessage = new ResponseMessage();
+        responseMessage.setMessage(message);
 
-@Component
-class Message{
-    private String content;
-
-    private Timestamp timestamp;
-
-
-    public void setContent(String content){
-        this.content = content;
+        return responseMessage;
     }
 
-    public String getContent(){
-        return content;
-    }
+    public ResponseRecent getLatestMessages(){
+        List<Message> messages = messageDAO.getLatestMessages();
+        ResponseRecent response = new ResponseRecent();
+        response.setMessages(messages);
+        response.setMessageCount(messages.size());
 
-    public void setTimestamp(Timestamp timestamp){
-        this.timestamp = timestamp;
-    }
+        if(!messages.isEmpty()){
+            response.setLastMessage(messages.get(0).getTimestamp());
+        }
 
-    public String getTimestamp() throws Exception{
-        SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-
-        return dateFormatGmt.format(timestamp);
+        return response;
     }
 
 }
+
+
+
