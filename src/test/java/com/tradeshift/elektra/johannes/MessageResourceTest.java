@@ -9,11 +9,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
-public class TestMessageResource {
+public class MessageResourceTest {
 
     @Test
-    public void testMessageResource() {
+    public void MessageResource_methods() {
 
         Recent mockRecent = mock(Recent.class);
         MessageService mockMessageService = mock(MessageService.class);

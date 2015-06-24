@@ -9,7 +9,7 @@ import java.util.*;
 
 import com.fasterxml.jackson.core.*;
 
-public class TestRecent {
+public class RecentTest {
 
     @Test
     public void testRecent()  {

@@ -47,8 +47,6 @@ public class MessageDAO  {
 
         return new Recent(messages, lastMessage);
     }
-
-
 }
 
 

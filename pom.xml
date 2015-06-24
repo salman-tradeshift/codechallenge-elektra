@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.tradeshift.elektra.johannes</groupId>
     <artifactId>messages</artifactId>
@@ -130,7 +130,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Spotify maven does not seem to support multiple docker files at the moment -->
             <plugin>
                 <artifactId>exec-maven-plugin</artifactId>
                 <groupId>org.codehaus.mojo</groupId>
@@ -144,7 +143,7 @@
                         </goals>
                         <configuration>
                             <executable>./docker-build.sh</executable>
-                            <workingDirectory>${project.basedir}/docker/database</workingDirectory>
+                            <workingDirectory>${project.basedir}/docker</workingDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -176,8 +175,8 @@
                 </executions>
 
                 <configuration>
-                    <imageName>messages</imageName>
-                    <dockerDirectory>${project.basedir}/docker/web</dockerDirectory>
+                    <imageName>chat-backend</imageName>
+                    <dockerDirectory>${project.basedir}/docker/backend</dockerDirectory>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

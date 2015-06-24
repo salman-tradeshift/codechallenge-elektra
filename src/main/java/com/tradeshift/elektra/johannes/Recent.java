@@ -3,7 +3,7 @@ package com.tradeshift.elektra.johannes;
 import java.util.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
 public class Recent {
     int messageCount;
@@ -22,7 +22,7 @@ public class Recent {
 
     public String getLastMessage()  {
        ObjectMapper mapper = new ObjectMapper();
-       mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+       mapper.setDateFormat(new ISO8601DateFormat());
 
        String result;
 
@@ -31,6 +31,8 @@ public class Recent {
         } catch (JsonProcessingException e) {
             result = new String("Jackson:JsonProcessingException");
         }
+
+        result = result.replaceAll("\\\"","");
 
         return result;
     }
@@ -41,15 +43,17 @@ public class Recent {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
+
+        Recent recentOther = (Recent) other;
+
+        if (this == recentOther) {
             return true;
-        }  else if (other instanceof Recent) {
+        }  else if (recentOther instanceof Recent) {
 
-            if (!lastMessage.equals( ((Recent)other).lastMessage )) { return false; }
-            if (!messages.equals( ((Recent)other).messages)) { return false; }
-
-            // double checking cant hurt
-            if (messageCount != ((Recent) other).messageCount) { return false; }
+            if (!lastMessage.equals(recentOther.lastMessage)) { return false; }
+            if (!messages.equals(recentOther.messages)) { return false; }
+            
+            if (messageCount != recentOther.messageCount) { return false; }
 
             return true;
 

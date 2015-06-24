@@ -14,7 +14,7 @@ public class MessageService {
     }
 
     public MessageDTO createMessage(String name) {
-        MessageDTO message = new MessageDTO("Hello: " + name);
+        MessageDTO message = new MessageDTO(name);
         messageDAO.save(message);
         return message;
     }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/chat.css"></link>
+</head>
+
+<div ng-app="message-app" ng-controller="MessageController as message">
+<p>
+    <h2>Chat</h2>
+
+    <h5>
+    <ng-pluralize count="messageCount"
+                  when="{'0': 'No messages',
+                     'one': '1 message sent {{ lastMessage | date  }}',
+                     'other': 'Displaying {} latest messages &mdash; last message sent {{ lastMessage | date }} '}">
+    </ng-pluralize>
+    </h5>
+
+    <ul id = "messages">
+        <li ng-repeat="msg in messages">
+            {{ msg.message.content }}
+        </li>
+    </ul>
+
+    <br />
+
+    <textarea rows = "3" cols = "35" ng-model="content" required></textarea>
+    <input id = "send" type="submit" value = "Send" ng-click="create()" />
+</p>
+</div>
+
+</body>
+</html>

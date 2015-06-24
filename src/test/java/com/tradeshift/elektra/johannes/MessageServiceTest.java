@@ -15,26 +15,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class TestMessageService {
+public class MessageServiceTest {
+    private static final String testString = "abcdefg";
+    private static final MessageDTO message = new MessageDTO(testString);
 
-    Recent recent;
-    MessageDTO message;
-    String testString;
-
-    @Before
-    public void Setup() {
+    @Test
+    public void MessageService_methods() {
+        Recent recent;
         Date date = new Date(1);
         MessageDTO m1 = new MessageDTO("foo");
         MessageDTO m2 = new MessageDTO("bar");
         ArrayList<MessageDTO> messages = new ArrayList<MessageDTO>(Arrays.asList(m1, m2));
         recent = new Recent(messages, date);
-
-        testString = "abcdefg";
-        message = new MessageDTO(("Hello: " + testString));
-    }
-
-    @Test
-    public void testMessageService() {
 
         MessageDAO mockMessageDAO = mock(MessageDAO.class);
         MessageService messageService = new MessageService(mockMessageDAO);
