@@ -25,27 +25,11 @@ public class MessageService {
     }
 
     public ResponseMessage saveMessage(String content){
-        Message message = new Message(content, null);
-
-        messageDAO.saveMessage(message);
-
-        ResponseMessage responseMessage = new ResponseMessage();
-        responseMessage.setMessage(message);
-
-        return responseMessage;
+        return messageDAO.saveMessage(content);
     }
 
     public ResponseRecent getLatestMessages(){
-        List<Message> messages = messageDAO.getLatestMessages();
-        ResponseRecent response = new ResponseRecent();
-        response.setMessages(messages);
-        response.setMessageCount(messages.size());
-
-        if(!messages.isEmpty()){
-            response.setLastMessage(messages.get(0).getTimestamp());
-        }
-
-        return response;
+        return messageDAO.getLatestMessages();
     }
 
 }

@@ -27,16 +27,21 @@ public class MessageDAO {
 
     @Autowired
     public void setDataSource(BasicDataSource dataSource) {
-
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void saveMessage(Message message){
+    public ResponseMessage saveMessage(String  content){
         String sql = "insert into message(content) values(?)";
-        jdbcTemplate.update(sql, message.getContent());
+        jdbcTemplate.update(sql, content);
+
+        Message message = new Message(content, null);
+        ResponseMessage responseMessage = new ResponseMessage();
+        responseMessage.setMessage(message);
+
+        return responseMessage;
     }
 
-    public List<Message> getLatestMessages(){
+    public ResponseRecent getLatestMessages(){
         String sql = "select * from message order by timestamp desc limit 10";
 
         List<Message> messages = this.jdbcTemplate.query(sql, new RowMapper<Message>() {
@@ -51,7 +56,14 @@ public class MessageDAO {
             }
         });
 
-        return messages;
+        ResponseRecent response = new ResponseRecent();
+        response.setMessages(messages);
+
+        if (!messages.isEmpty()){
+            response.setLastMessage(messages.get(0).getTimestamp());
+        }
+
+        return response;
     }
 }
 

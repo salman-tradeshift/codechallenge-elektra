@@ -25,12 +25,13 @@ public class Message {
 
     @JsonIgnore
     public String getTimestamp(){
-        if(timestamp != null){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-            sdf.setCalendar(timestamp);
-            return sdf.format(timestamp.getTime());
-        }else{
+        if (timestamp == null){
             return null;
         }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+        sdf.setCalendar(timestamp);
+        return sdf.format(timestamp.getTime());
+
     }
 }

@@ -6,13 +6,8 @@ import java.util.List;
  * Created by ksp on 22/06/15.
  */
 public class ResponseRecent {
-    private int messageCount;
     private String lastMessage;
     private List<Message> messages;
-
-    public void setMessageCount(int messageCount){
-        this.messageCount = messageCount;
-    }
 
     public void setLastMessage(String lastMessage){
         this.lastMessage = lastMessage;
@@ -23,13 +18,13 @@ public class ResponseRecent {
     }
 
     public int getMessageCount(){
-        return messageCount;
+        return messages.size();
     }
 
     public String getLastMessage(){
         return lastMessage;
     }
-
+    
     public List<Message> getMessages(){
         return messages;
     }
