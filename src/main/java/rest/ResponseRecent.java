@@ -24,7 +24,7 @@ public class ResponseRecent {
     public String getLastMessage(){
         return lastMessage;
     }
-    
+
     public List<Message> getMessages(){
         return messages;
     }

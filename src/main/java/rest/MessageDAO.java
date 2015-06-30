@@ -30,6 +30,10 @@ public class MessageDAO {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public ResponseMessage saveMessage(String  content){
         String sql = "insert into message(content) values(?)";
         jdbcTemplate.update(sql, content);

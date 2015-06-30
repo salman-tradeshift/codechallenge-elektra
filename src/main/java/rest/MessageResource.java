@@ -17,7 +17,7 @@ public class MessageResource {
     @Path("/names/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseMessage postMessage(@PathParam("name") String name) {
-        return messageService.saveMessage("hello " + name);
+        return messageService.saveMessage(name);
     }
 
     @GET

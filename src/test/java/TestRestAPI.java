@@ -18,9 +18,16 @@ public class TestRestAPI extends JerseyTest {
 
     @Override
     protected Application configure() {
-        List<Message> messages = new ArrayList<Message>();
         MessageDAO test = Mockito.mock(MessageDAO.class);
-        Mockito.when(test.getLatestMessages()).thenReturn(messages);
+
+        List<Message> messages = new ArrayList<Message>();
+        ResponseRecent responseRecent = new ResponseRecent();
+        responseRecent.setMessages(messages);
+        Mockito.when(test.getLatestMessages()).thenReturn(responseRecent);
+
+        ResponseMessage responseMessage = new ResponseMessage();
+        Mockito.when(test.saveMessage("peter")).thenReturn(responseMessage);
+
         MessageService messageService = new MessageService(test);
         MessageResource messageResource = new MessageResource(messageService);
 
