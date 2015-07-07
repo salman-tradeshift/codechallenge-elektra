@@ -49,4 +49,9 @@ crashlytics-build.properties
 
 *.class
 
+docker/frontend/server.js
+docker/frontend/public/*
 target/*
+frontend/node_modules/*
+frontend/bower_components/*
+frontend/public/js/*

@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         version="2.5">
-        <display-name>Archetype Created Web Application</display-name>
+        <display-name>Chat REST api</display-name>
 
         <context-param>
             <param-name>contextConfigLocation</param-name>
@@ -29,6 +29,11 @@
             <init-param>
                 <param-name>javax.ws.rs.Application</param-name>
                 <param-value>com.tradeshift.elektra.johannes.RESTApplication</param-value>
+            </init-param>
+
+            <init-param>
+                <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+                <param-value>com.tradeshift.elektra.johannes.CORSFilter</param-value>
             </init-param>
 
             <load-on-startup>1</load-on-startup>
