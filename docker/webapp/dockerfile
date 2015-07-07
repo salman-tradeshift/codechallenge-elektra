@@ -15,7 +15,7 @@ RUN rm -rf /opt/jetty/webapps.demo
 RUN useradd jetty -U -s /bin/false
 RUN chown -R jetty:jetty /opt/jetty/
 
-ADD messages.war /opt/jetty/webapps/messages.war
+ADD /maven/messages.war /opt/jetty/webapps/messages.war
 
 EXPOSE 8080
 

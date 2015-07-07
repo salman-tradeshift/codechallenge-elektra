@@ -1,4 +1,4 @@
-package com.tradeshift.messages;
+package com.tradeshift.messages.forjson;
 
 /**
  * Created by ajo on 08/06/15.
@@ -11,12 +11,10 @@ public class Message {
     private final String content;
 
     public Message(String name) {
-
         content = "Hello " + name;
     }
 
     public String getContent() {
-
         return content;
     }
 
