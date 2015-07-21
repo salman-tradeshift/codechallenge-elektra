@@ -7,15 +7,14 @@ import org.junit.Test;
 
 import com.tradeshift.dto.Message;
 import com.tradeshift.exception.ServiceException;
-import com.tradeshift.service.impl.MessageServiceImpl;
 
 public class MessageServiceTest {
 
     @Test
-    public void testProcessContent() throws ServiceException {
+    public void testCreateMessage() throws ServiceException {
 
-        MessageServiceImpl messageService = new MessageServiceImpl();
-        Message message = messageService.processContent("Salman");
+        MessageService messageService = new MessageService();
+        Message message = messageService.createMessage("Salman");
 
         assertNotNull(message);
         assertEquals("Hello Salman", message.getContent());

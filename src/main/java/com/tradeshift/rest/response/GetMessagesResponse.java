@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.google.common.base.Preconditions;
 import com.tradeshift.dto.Message;
 
-public class GetResponse implements Serializable {
+public class GetMessagesResponse implements Serializable {
 
     private static final long serialVersionUID = -4227947057262227741L;
 
@@ -14,28 +15,25 @@ public class GetResponse implements Serializable {
     private Timestamp lastMessage;
     private List<Message> messages;
 
-    public int getMessageCount() {
-        return messageCount;
+    public GetMessagesResponse(List<Message> messages, Timestamp lastMessage) {
+
+        Preconditions.checkNotNull(messages);
+        this.messages = messages;
+        this.lastMessage = lastMessage;
+        this.messageCount = messages.size();
+
     }
 
-    public void setMessageCount(int messageCount) {
-        this.messageCount = messageCount;
+    public int getMessageCount() {
+        return messageCount;
     }
 
     public Timestamp getLastMessage() {
         return lastMessage;
     }
 
-    public void setLastMessage(Timestamp lastMessage) {
-        this.lastMessage = lastMessage;
-    }
-
     public List<Message> getMessages() {
         return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
     }
 
     @Override
