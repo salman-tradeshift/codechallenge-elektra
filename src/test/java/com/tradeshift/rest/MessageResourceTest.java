@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.tradeshift.dto.Message;
-import com.tradeshift.dto.RestResponse;
 import com.tradeshift.exception.ServiceException;
 import com.tradeshift.rest.impl.MessageResourceImpl;
+import com.tradeshift.rest.response.PostResponse;
 import com.tradeshift.service.MessageService;
 
 public class MessageResourceTest {
@@ -37,9 +37,9 @@ public class MessageResourceTest {
 
         assertNotNull(response);
         assertTrue(response.getStatus() == Status.OK.getStatusCode());
-        assertTrue(response.getEntity() instanceof RestResponse);
+        assertTrue(response.getEntity() instanceof PostResponse);
 
-        RestResponse restResponse = (RestResponse) response.getEntity();
+        PostResponse restResponse = (PostResponse) response.getEntity();
 
         assertTrue(restResponse.getMessage().getContent().equals("Hello " + TEST_NAME));
     }

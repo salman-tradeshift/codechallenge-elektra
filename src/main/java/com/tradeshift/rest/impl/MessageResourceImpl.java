@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.tradeshift.dto.Message;
-import com.tradeshift.dto.RestResponse;
 import com.tradeshift.exception.ServiceException;
 import com.tradeshift.rest.MessageResource;
+import com.tradeshift.rest.response.PostResponse;
 import com.tradeshift.service.MessageService;
 
 @Path("/messages")
@@ -30,7 +30,7 @@ public class MessageResourceImpl implements MessageResource {
     public Response createName(String name) {
         try {
             Message message = messageService.processContent(name);
-            RestResponse response = new RestResponse();
+            PostResponse response = new PostResponse();
             response.setMessage(message);
             return Response.ok(response).build();
 
@@ -38,6 +38,11 @@ public class MessageResourceImpl implements MessageResource {
             logger.error("Unable to process content", se);
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @Override
+    public Response getRecentMessages() {
+        return null;
     }
 
     public MessageService getMessageService() {

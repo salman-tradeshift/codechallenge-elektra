@@ -1,8 +1,10 @@
-package com.tradeshift.dto;
+package com.tradeshift.rest.response;
 
 import java.io.Serializable;
 
-public class RestResponse implements Serializable {
+import com.tradeshift.dto.Message;
+
+public class PostResponse implements Serializable {
     private static final long serialVersionUID = 6822503619799771201L;
     private Message message;
 
