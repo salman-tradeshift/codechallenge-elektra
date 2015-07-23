@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -13,16 +14,16 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tradeshift.dto.Message;
 import com.tradeshift.exception.ServiceException;
 import com.tradeshift.rest.response.CreateMessageResponse;
+import com.tradeshift.rest.response.GetRecentMessagesResponse;
 import com.tradeshift.service.MessageService;
 
 @Path("/messages")
 @Component
-public class MessageResource {
+public final class MessageResource {
     private static final Logger logger = Logger.getLogger(MessageResource.class);
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @Autowired
     public MessageResource(MessageService messageService) {
@@ -33,14 +34,13 @@ public class MessageResource {
     @Path("/names/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createName(String name) {
+    public Response createMessage(@PathParam("name") String name) {
         try {
-            Message message = messageService.createMessage(name);
-            CreateMessageResponse response = new CreateMessageResponse(message);
+            CreateMessageResponse response = messageService.createMessage(name);
             return Response.ok(response).build();
-
         } catch (ServiceException se) {
-            logger.error("Unable to process content", se);
+            // There should be a meaningful message to the user
+            // Will be implemented in iteration 3
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -49,6 +49,11 @@ public class MessageResource {
     @Path("/recent")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRecentMessages() {
-        return null;
+        try {
+            GetRecentMessagesResponse response = messageService.getRecentMessages();
+            return Response.ok(response).build();
+        } catch (Exception se) {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

@@ -1,25 +1,43 @@
 package com.tradeshift.service;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
-import com.tradeshift.dto.Message;
+import com.tradeshift.dao.MessageDAO;
+import com.tradeshift.dto.ContentDTO;
+import com.tradeshift.dto.MessageDTO;
 import com.tradeshift.exception.ServiceException;
+import com.tradeshift.rest.response.CreateMessageResponse;
+import com.tradeshift.rest.response.GetRecentMessagesResponse;
 
-@Component
+@Service
 public class MessageService {
-
     private static final Logger logger = Logger.getLogger(MessageService.class);
+    private final MessageDAO messageDAO;
 
-    public Message createMessage(String name) throws ServiceException {
+    @Autowired
+    public MessageService(MessageDAO messageDAO) {
+        this.messageDAO = messageDAO;
+    }
 
+    public CreateMessageResponse createMessage(String name) throws ServiceException {
         try {
-            Message message = new Message(name);
-            message.createMessageContent();
-            return message;
-        } catch (Exception ex) {
-            logger.error("Error setting name", ex);
-            throw new ServiceException("5001", "Invalid name field");
+            name = "Hello " + name;
+            ContentDTO message = messageDAO.createMessage(name);
+            return new CreateMessageResponse(message);
+        } catch (DataAccessException dae) {
+            throw new ServiceException("5001", "Unable to Access database");
+        }
+    }
+
+    public GetRecentMessagesResponse getRecentMessages() throws ServiceException {
+        try {
+            MessageDTO messages = messageDAO.getMessages();
+            return new GetRecentMessagesResponse(messages);
+        } catch (DataAccessException dae) {
+            throw new ServiceException("5001", "Unable to Access database");
         }
     }
 }

@@ -7,6 +7,17 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <context:component-scan base-package="com.tradeshift.rest, com.tradeshift.service" />
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://192.168.59.103:5432/messagedb"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource"  ref="dataSource" />
+    </bean>
+
+    <context:component-scan base-package="com.tradeshift.rest, com.tradeshift.service, com.tradeshift.dao" />
     <context:annotation-config/>
 </beans>
